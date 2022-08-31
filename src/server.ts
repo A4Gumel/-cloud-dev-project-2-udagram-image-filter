@@ -65,9 +65,9 @@ const upload = multer({ storage, fileFilter });
     app.post("/filter-image", upload.single("file"), async (req, res) => {
       if (!req.file || !isRealFileExt(path.extname(req.file.originalname))) {
         return res
-          .status(403)
+          .status(422)
           .contentType("text/plain")
-          .end("This image is not supported.");
+          .end("This image is not supported. Could not process your request try again");
       }
   
       const filteredImagePath = await filterImageFromURL(
